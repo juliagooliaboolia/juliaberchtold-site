@@ -2,7 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import { u } from '../../data/site.js';
 import { Content, getHeadings } from '../../content/rome.md';
-const heads = getHeadings().filter((h) => h.depth <= 3);
+const heads = getHeadings().filter((h) => h.depth <= 3 && !/^(If you've been before|Book these now)/.test(h.text));
 ---
 <Base title="Rome, a personal guide" active="Travel" image="img/julia-steps.jpg" description="Julia's personal guide to Rome: where to eat, drink and wander, neighborhood by neighborhood, and when to go to have it to yourself.">
   <main class="wrap">

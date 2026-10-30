@@ -1,16 +1,17 @@
 ---
 import Base from '../../layouts/Base.astro';
 import { u, ARCHIVE_URL, INSTAGRAM } from '../../data/site.js';
+import { COPY } from '../../data/copy.js';
+const A = COPY.about;
 ---
-<Base title="About" active="About" image="img/julia-camera.jpg" description="I'm Julia (or Juju): an amateur photographer, designer, maker, and collector of moments, stories, and way too many hobbies.">
+<Base title="About" active="About" image="img/julia-camera.jpg" description={A.description}>
   <main class="wrap">
     <section class="hero">
       <img class="main" src={u('img/julia-camera.jpg')} alt="Julia laughing behind her camera, with Rome behind her" />
       <div class="txt">
         <span class="caps muted">About</span>
-        <h1 class="display" style="font-size:clamp(44px,5vw,56px)">Hi, I'm Julia.</h1>
-        <p class="lead">I'm Julia (or "Juju"), an amateur photographer, designer, maker, and collector of moments, stories, and way too many hobbies. I'm endlessly fascinated by people, the places that shape us, and the beauty hiding in plain sight. This little space is where all my curiosities come together.</p>
-        <p class="lead">Behind the camera, my real skill is people. I'm good at putting strangers at ease and bringing energy into a room, and some of it ends up in the photos. I photograph friends, and friends of friends. If that might be you, say hello.</p>
+        <h1 class="display" style="font-size:clamp(44px,5vw,56px)">{A.heading}</h1>
+        {A.paragraphs.map((t) => <p class="lead">{t}</p>)}
         <span class="hand" style="font-size:58px;transform:rotate(-4deg);align-self:flex-start">Julia</span>
         <div style="display:flex;gap:12px;flex-wrap:wrap"><a class="pill solid caps" href={u('inquire/')}>Inquire</a><a class="pill caps" href={INSTAGRAM.url}>Instagram</a></div>
       </div>
@@ -18,11 +19,8 @@ import { u, ARCHIVE_URL, INSTAGRAM } from '../../data/site.js';
 
     <section class="facts">
       <div class="list">
-        <span class="caps muted" style="margin-bottom:12px">A few things about me</span>
-        <div class="fact"><span class="caps muted">Home</span><span>Greenpoint, Brooklyn, by way of inland California</span></div>
-        <div class="fact"><span class="caps muted">Italy so far</span><span>18 of 20 regions · Friuli-Venezia Giulia and Basilicata next</span></div>
-        <div class="fact"><span class="caps muted">Off camera</span><span>Watercolor, jewelry, piano, and too many other hobbies</span></div>
-        <div class="fact"><span class="caps muted">Day job</span><span>Experience designer</span></div>
+        <span class="caps muted" style="margin-bottom:12px">{A.facts_heading}</span>
+        {A.facts.map((f) => <div class="fact"><span class="caps muted">{f.label}</span><span>{f.text}</span></div>)}
       </div>
       <div class="pics">
         <img src={u('img/julia-steps.jpg')} alt="Julia taking a photo from the top of the Spanish Steps" loading="lazy" />
@@ -31,9 +29,9 @@ import { u, ARCHIVE_URL, INSTAGRAM } from '../../data/site.js';
     </section>
 
     <section class="start">
-      <span class="caps muted">Where this started</span>
-      <p class="lead">Before this site there was Il Bel Viaggio, a little photo blog I kept from 2015 to 2016. It's still there, just as it was.</p>
-      <a class="lnk" href={ARCHIVE_URL}>Visit the archive: Il Bel Viaggio →</a>
+      <span class="caps muted">{A.archive_label}</span>
+      <p class="lead">{A.archive_text}</p>
+      <a class="lnk" href={ARCHIVE_URL}>{A.archive_link}</a>
     </section>
   </main>
 </Base>

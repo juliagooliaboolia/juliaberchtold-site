@@ -2,9 +2,11 @@
 import Base from '../layouts/Base.astro';
 import ItalyMap from '../components/ItalyMap.astro';
 import { u } from '../data/site.js';
+import { COPY } from '../data/copy.js';
+const H = COPY.homepage;
 import { NOTICE, WATERCOLORS, MAKE_UNDER } from '../data/photos.js';
 ---
-<Base description="Julia Berchtold — I notice, I explore, I make. Photographs for friends and friends of friends, a Rome guide, and one-of-a-kind jewelry.">
+<Base description={H.description}>
   <main>
     <section class="hero wrap" aria-label="Notice, explore, make">
       <!-- notice -->
@@ -31,7 +33,7 @@ import { NOTICE, WATERCOLORS, MAKE_UNDER } from '../data/photos.js';
         <a class="rome" href={u('travel/rome/')} aria-label="My Rome guide">
           <span class="tack" aria-hidden="true"></span>
           <img src={u('img/p/trv-italy-rome-4.jpg')} alt="Ponte Sisto at golden hour, Rome" loading="lazy" />
-          <span class="cap"><span class="hand">Rome</span><span class="caps">my guide →</span></span>
+          <span class="cap"><span class="hand">{H.polaroid_big}</span><span class="caps">{H.polaroid_small}</span></span>
         </a>
       </div>
 
@@ -51,24 +53,24 @@ import { NOTICE, WATERCOLORS, MAKE_UNDER } from '../data/photos.js';
     <section class="descs wrap" aria-label="What you'll find here">
       <div class="desc">
         <span class="fr vn" style="font-size:30px">notice</span>
-        <span class="caps muted">Photography</span>
-        <h2 class="fr dh">The moments I capture</h2>
-        <p class="dp">Weddings, new babies, people and community gatherings, for friends and friends of friends. I'm usually the one getting the room to laugh, which is when the real moments happen.</p>
-        <div class="dl"><a class="lnk" href={u('photography/')}>See my photographs →</a><a class="lnk" href={u('inquire/#shoot')}>Ask about a shoot</a></div>
+        <span class="caps muted">{H.notice.label}</span>
+        <h2 class="fr dh">{H.notice.heading}</h2>
+        <p class="dp">{H.notice.text}</p>
+        <div class="dl"><a class="lnk" href={u('photography/')}>{H.notice.link_1}</a><a class="lnk" href={u('inquire/#shoot')}>{H.notice.link_2}</a></div>
       </div>
       <div class="desc">
         <span class="fr ve" style="font-size:30px">explore</span>
-        <span class="caps muted">Travel</span>
-        <h2 class="fr dh">The places I wander</h2>
-        <p class="dp">Eighteen of Italy's twenty regions and counting, the Rome guide I keep for friends, and the places farther afield that changed how I see the world.</p>
-        <div class="dl"><a class="lnk" href={u('travel/')}>Open the map →</a><a class="lnk" href={u('travel/rome/')}>The Rome guide</a></div>
+        <span class="caps muted">{H.explore.label}</span>
+        <h2 class="fr dh">{H.explore.heading}</h2>
+        <p class="dp">{H.explore.text}</p>
+        <div class="dl"><a class="lnk" href={u('travel/')}>{H.explore.link_1}</a><a class="lnk" href={u('travel/rome/')}>{H.explore.link_2}</a></div>
       </div>
       <div class="desc">
         <span class="fr vm" style="font-size:30px">make</span>
-        <span class="caps muted">Studio</span>
-        <h2 class="fr dh">The things I make</h2>
-        <p class="dp">Jewelry that makes a statement, for a good cause. A portion of every sale goes to a new charitable organization each month. Some pieces are ready now; others I'll make with you.</p>
-        <div class="dl"><a class="lnk" href={u('studio/')}>Visit juju.bee studio →</a></div>
+        <span class="caps muted">{H.make.label}</span>
+        <h2 class="fr dh">{H.make.heading}</h2>
+        <p class="dp">{H.make.text}</p>
+        <div class="dl"><a class="lnk" href={u('studio/')}>{H.make.link_1}</a></div>
       </div>
     </section>
 
@@ -77,12 +79,12 @@ import { NOTICE, WATERCOLORS, MAKE_UNDER } from '../data/photos.js';
         <img class="me" src={u('img/julia-vittoriano-crop.jpg')} alt="Julia smiling, with her camera, in front of the Vittoriano in Rome" loading="lazy" />
         <div class="txt">
           <span class="caps muted">About</span>
-          <h2 id="h-about" class="display" style="font-size:40px">Hi, I'm Julia.</h2>
-          <p>I'm Julia (or "Juju"), an amateur photographer, designer, maker, and collector of moments, stories, and way too many hobbies. I'm endlessly fascinated by people, the places that shape us, and the beauty hiding in plain sight. This little space is where all my curiosities come together.</p>
+          <h2 id="h-about" class="display" style="font-size:40px">{H.about.heading}</h2>
+          <p>{H.about.text}</p>
         </div>
         <div class="sign">
           <span class="hand" aria-label="Signed, Julia" style="font-size:58px;transform:rotate(-4deg)">Julia</span>
-          <a class="pill solid caps" href={u('about/')}>More about me →</a>
+          <a class="pill solid caps" href={u('about/')}>{H.about.button}</a>
         </div>
       </div>
     </section>

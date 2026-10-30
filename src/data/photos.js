@@ -1,33 +1,11 @@
 // Photography data. Photos live in public/img/p/. To swap photos, edit these lists.
 // o = orientation: 'p' portrait (tall), 'l' landscape (wide).
 
-export const CATEGORIES = {
-  weddings: {
-    title: 'Weddings', word: 'love', link: 'All weddings',
-    blurb: "Weddings and engagements. Vows, toasts, and everything in between. I'm the friend with the camera who gets the whole room laughing, which is when the real moments happen.",
-    story: { title: 'Confetti on the steps', meta: 'Wedding' },
-  },
-  family: {
-    title: 'Family', word: 'new life', link: 'All family',
-    blurb: "First weeks home, big sisters, and the dog who won't leave the baby's side. I come to you, follow the family's rhythm, and photograph what's already there.",
-    story: { title: 'First weeks home', meta: 'Newborn session' },
-  },
-  people: {
-    title: 'People', word: 'who you are', link: 'All people',
-    blurb: "My favorite subject. Candids, portraits and headshots of friends, family, and people I meet along the way. By the end, you've forgotten the camera is there.",
-    story: { title: 'People I notice', meta: 'Candids, portraits and headshots' },
-  },
-  community: {
-    title: 'Community', word: 'change-makers', link: 'All community',
-    blurb: 'Galas, fundraisers and gatherings for causes I care about. I move through the room so the photos feel like being there.',
-    story: { title: 'A night for a cause', meta: 'Charity gala' },
-  },
-  travel: {
-    title: 'Travel', word: 'the world', link: 'All travel',
-    blurb: 'The places that shape us, and the beauty hiding in plain sight along the way.',
-    story: { title: 'Places that shaped me', meta: 'Travel' },
-  },
-};
+// Gallery titles, words and blurbs live in src/content/site-copy.yml
+import { COPY } from './copy.js';
+export const CATEGORIES = Object.fromEntries(Object.entries(COPY.photography.galleries).map(([k, g]) => [k, {
+  title: g.title, word: g.word, link: g.link, blurb: g.blurb, story: { title: g.story_title, meta: g.story_meta },
+}]));
 
 // The set shown on each category page (and its story page), in order: [file, o, alt]
 export const SETS = {

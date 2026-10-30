@@ -2,6 +2,7 @@
 import Base from '../../../layouts/Base.astro';
 import { u } from '../../../data/site.js';
 import { CATEGORIES, SETS } from '../../../data/photos.js';
+import { COPY } from '../../../data/copy.js';
 export function getStaticPaths() { return Object.keys(CATEGORIES).map((cat) => ({ params: { cat } })); }
 const { cat } = Astro.params;
 const c = CATEGORIES[cat];
@@ -36,8 +37,8 @@ const keys = Object.keys(CATEGORIES); const nextCat = keys[(keys.indexOf(cat) + 
         <a class="lnk" href={u('photography/' + cat + '/')}>Back to {c.title.toLowerCase()} →</a>
       </div>
       <div class="cta">
-        <span class="fr" style="font-size:24px;line-height:1.2;font-variation-settings:'opsz' 36,'wght' 360,'SOFT' 50">Want photos like these? Tell me who'll be there.</span>
-        <a class="pill solid caps" href={u('photography/' + cat + '/#ask')}>Ask about a shoot</a>
+        <span class="fr" style="font-size:24px;line-height:1.2;font-variation-settings:'opsz' 36,'wght' 360,'SOFT' 50">{COPY.photography.story_cta}</span>
+        <a class="pill solid caps" href={u('photography/' + cat + '/#ask')}>{COPY.photography.story_button}</a>
       </div>
     </section>
   </main>

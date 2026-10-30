@@ -1,8 +1,9 @@
 ---
+import { COPY } from '../data/copy.js';
 import '../styles/global.css';
 import { u, EMAIL, INSTAGRAM, INSTAGRAM_STUDIO } from '../data/site.js';
 interface Props { title?: string; description?: string; active?: string; overlay?: boolean; footer?: boolean; image?: string }
-const { title, description = 'Julia Berchtold — photographs, travel, and handmade jewelry. I capture experiences, and I create them.', active = '', overlay = false, footer = true, image = 'img/julia-camera.jpg' } = Astro.props;
+const { title, description = COPY.site.description, active = '', overlay = false, footer = true, image = 'img/julia-camera.jpg' } = Astro.props;
 const full = title ? `${title} — Julia Berchtold` : 'Julia Berchtold';
 const links = [
   ['Photography', 'photography/'], ['Travel', 'travel/'], ['Studio', 'studio/'], ['About', 'about/'],

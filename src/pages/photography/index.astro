@@ -2,9 +2,10 @@
 import Base from '../../layouts/Base.astro';
 import { u } from '../../data/site.js';
 import { FIELD, CATEGORIES } from '../../data/photos.js';
+import { COPY } from '../../data/copy.js';
 const tiles = FIELD.map(([cat, f, o, word, alt], i) => ({ i, cat, src: u('img/' + f), o, alt, word: word || CATEGORIES[cat].word, link: CATEGORIES[cat].link + ' →', href: u('photography/' + cat + '/') }));
 ---
-<Base title="Photography" active="Photography" overlay={true} footer={false} description="Weddings, family, people, community and travel — photographs by Julia Berchtold, for friends and friends of friends.">
+<Base title="Photography" active="Photography" overlay={true} footer={false} description={COPY.photography.description}>
   <main class="field" aria-label="Photography: a field of photos around the word notice">
     <h1 class="sr">Photography</h1>
     {tiles.map((t) => (
@@ -23,7 +24,7 @@ const tiles = FIELD.map(([cat, f, o, word, alt], i) => ({ i, cat, src: u('img/' 
       </nav>
       <div class="controls">
         <button type="button" class="sw caps" role="switch" aria-checked="true"><span>Spotlight</span><span class="tr"><span class="kn"></span></span></button>
-        <span class="hint">Drag or scroll to look around</span>
+        <span class="hint">{COPY.photography.hint}</span>
         <button type="button" class="toggle" aria-label="Pause motion" title="Pause motion"><span><svg class="i-pause" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><rect x="2.5" y="1.5" width="2.4" height="9" fill="#1F1A1B"/><rect x="7.1" y="1.5" width="2.4" height="9" fill="#1F1A1B"/></svg><svg class="i-play" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 1.5 L10.5 6 L3 10.5 Z" fill="#1F1A1B"/></svg></span></button>
       </div>
     </footer>

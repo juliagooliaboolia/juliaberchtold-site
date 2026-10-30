@@ -2,56 +2,45 @@
 import Base from '../../layouts/Base.astro';
 import Inquiry from '../../components/Inquiry.astro';
 import { u, INSTAGRAM_STUDIO } from '../../data/site.js';
-// Designs Julia makes to order: [photo, name, note, tag]
-const DESIGNS = [
-  ['j/oysters.jpg', 'Oysters', 'Layered oyster shells with a freshwater pearl. In black or white; you choose the pearl color.', 'Most loved'],
-  ['j/face-lips.jpg', 'Face & lips', 'Two line-drawn faces, eye to eye, each with a red lip.', ''],
-  ['j/sacred-feminine.jpg', 'Sacred feminine', 'An abstract figure with onyx, a pair of pearls and a garnet-red drop.', ''],
-  ['j/pearl-earring.jpg', 'Girl with a Pearl Earring', 'A single-line portrait wearing her own freshwater pearl.', ''],
-];
-// Past commissions: [photo, title, story]
-const COMMISSIONS = [
-  ['j/custom-paraclimbing.jpg', 'For the Paraclimbing World Cup', 'Climbing knots in neon green with blue drops, for a friend competing in Korea and Japan.'],
-  ['j/custom-paso-robles.jpg', 'A wine-country wedding', "Earrings and a branch pin for a friend's wedding in Paso Robles."],
-  ['j/custom-wedding-pin.jpg', 'A pin for my new sister', "For my brother's wife on their wedding day: a gold branch hung with a grey pearl, mother-of-pearl, a hummingbird and a 1994 Italian 20-lire coin."],
-];
+import { COPY } from '../../data/copy.js';
+const S = COPY.studio;
 ---
-<Base title="Studio" active="Studio" description="juju.bee studio: handmade earrings and commissions, each paired with an original watercolor. A portion of every sale goes to a charity that changes monthly.">
+<Base title="Studio" active="Studio" description={S.description}>
   <main class="wrap">
     <section class="top">
       <span class="fr vm" style="font-size:clamp(72px,9vw,120px)">make</span>
       <div class="hd">
         <div>
-          <h1 class="display" style="font-size:clamp(32px,4vw,44px)">juju.bee studio</h1>
-          <p class="lead" style="margin-top:16px">Jewelry that makes a statement, for a good cause. Every pair comes with an original watercolor of mine, and a portion of every sale goes to a new charitable organization each month.</p>
+          <h1 class="display" style="font-size:clamp(32px,4vw,44px)">{S.heading}</h1>
+          <p class="lead" style="margin-top:16px">{S.intro}</p>
         </div>
         <div class="charity">
-          <span class="caps muted">This month's cause</span>
-          <span class="fr" style="font-size:24px;font-variation-settings:'opsz' 36,'wght' 360,'SOFT' 50">Announced on <a href={INSTAGRAM_STUDIO.url}>{INSTAGRAM_STUDIO.handle}</a></span>
+          <span class="caps muted">{S.cause_label}</span>
+          <span class="fr" style="font-size:24px;font-variation-settings:'opsz' 36,'wght' 360,'SOFT' 50">{S.cause_text} <a href={INSTAGRAM_STUDIO.url}>{INSTAGRAM_STUDIO.handle}</a></span>
         </div>
       </div>
     </section>
 
     <section class="avail" aria-labelledby="h-avail">
-      <div class="sh"><h2 id="h-avail" class="caps">The collection</h2><span class="muted" style="font-size:14px">Made by hand, a few at a time. Each pair comes with an original watercolor.</span></div>
+      <div class="sh"><h2 id="h-avail" class="caps">{S.collection_heading}</h2><span class="muted" style="font-size:14px">{S.collection_note}</span></div>
       <div class="grid">
-        {DESIGNS.map(([photo, name, note, tag]) => (
+        {S.designs.map(({ photo, name, note, tag }) => (
           <article class="piece">
             <div class="ph"><img src={u('img/' + photo)} alt={name + ' earrings'} loading="lazy" /></div>
             <div class="pm"><h3 class="fr nm">{name}</h3>{tag && <span class="caps muted">{tag}</span>}</div>
             <p class="muted" style="margin:0;font-size:14px">{note}</p>
-            <a class="lnk" href={u('inquire/#jewelry')}>Ask about a pair →</a>
+            <a class="lnk" href={u('inquire/#jewelry')}>{S.ask_link}</a>
           </article>
         ))}
       </div>
     </section>
 
     <section class="comm" aria-labelledby="h-comm">
-      <span class="caps muted">Commissions</span>
-      <h2 id="h-comm" class="display" style="font-size:clamp(32px,4vw,44px)">Something made for you</h2>
-      <p class="lead" style="max-width:640px">For a wedding, a gift, a big moment. Tell me who it's for and what they love, and I'll sketch a few ideas, then paint a watercolor to go with the finished piece. A few I've made:</p>
+      <span class="caps muted">{S.commissions_label}</span>
+      <h2 id="h-comm" class="display" style="font-size:clamp(32px,4vw,44px)">{S.commissions_heading}</h2>
+      <p class="lead" style="max-width:640px">{S.commissions_intro}</p>
       <div class="grid three">
-        {COMMISSIONS.map(([photo, title, story]) => (
+        {S.commissions.map(({ photo, title, story }) => (
           <figure class="piece">
             <div class="ph"><img src={u('img/' + photo)} alt={title} loading="lazy" /></div>
             <figcaption><h3 class="fr nm">{title}</h3><p class="muted" style="margin:6px 0 0;font-size:14px">{story}</p></figcaption>

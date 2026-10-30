@@ -1,22 +1,23 @@
 ---
 import { EMAIL } from '../data/site.js';
+import { COPY } from '../data/copy.js';
 interface Props { kind?: 'shoot' | 'jewelry'; heading?: string; id?: string }
 const { kind = 'shoot', heading, id } = Astro.props;
-const shootQs = ['Your name:', 'What kind of shoot (wedding or engagement, family or newborn, portraits or headshots, a community event…)?', 'Who will be there?', 'What should these photos feel like?', 'Anyone camera-shy? Most people are.', 'Roughly when, and where?'];
-const jewelQs = ['Your name:', 'A piece you saw in the studio, or a commission?', 'Who is it for, and what is the occasion?', 'Colors, shapes or stories you love:', 'When do you need it by?'];
-const qs = kind === 'shoot' ? shootQs : jewelQs;
-const subject = kind === 'shoot' ? 'Photo shoot inquiry' : 'Jewelry inquiry';
-const href = `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent('Hi Julia,\n\n' + qs.map((q) => q + '\n\n').join(''))}`;
+const Q = COPY.inquire;
+const k = kind === 'shoot' ? Q.shoot : Q.jewelry;
+const qs = k.questions;
+const subject = k.email_subject;
+const href = `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(Q.email_greeting + '\n\n' + [Q.email_name_prompt, ...qs].map((q) => q + '\n\n').join(''))}`;
 ---
 <section class="inq" id={id}>
   <div class="l">
-    <span class="caps muted">{kind === 'shoot' ? 'Ask about a shoot' : 'Pieces & commissions'}</span>
-    <h2 class="display">{heading ?? (kind === 'shoot' ? "Tell me who'll be there, and what you want to remember." : 'Tell me who it’s for, and I’ll tell you what I see.')}</h2>
+    <span class="caps muted">{k.label}</span>
+    <h2 class="display">{heading ?? k.heading}</h2>
   </div>
   <div class="r">
-    <p class="muted" style="margin:0 0 6px">A few things I'll ask:</p>
-    <ol>{qs.slice(1).map((q) => <li>{q}</li>)}</ol>
-    <a class="pill solid caps" href={href}>Email me</a>
+    <p class="muted" style="margin:0 0 6px">{Q.intro_to_questions}</p>
+    <ol>{qs.map((q) => <li>{q}</li>)}</ol>
+    <a class="pill solid caps" href={href}>{Q.email_button}</a>
     <p class="muted" style="font-size:13px;margin:4px 0 0">Or write to <a href={`mailto:${EMAIL}`}>{EMAIL}</a>.</p>
   </div>
 </section>

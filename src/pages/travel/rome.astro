@@ -1,15 +1,16 @@
 ---
 import Base from '../../layouts/Base.astro';
 import { u } from '../../data/site.js';
+import { COPY } from '../../data/copy.js';
 import { Content, getHeadings } from '../../content/rome.md';
 const heads = getHeadings().filter((h) => h.depth <= 3 && !/^(If you've been before|Book these now)/.test(h.text));
 ---
-<Base title="Rome, a personal guide" active="Travel" image="img/julia-steps.jpg" description="Julia's personal guide to Rome: where to eat, drink and wander, neighborhood by neighborhood, and when to go to have it to yourself.">
+<Base title="Rome, a personal guide" active="Travel" image="img/julia-steps.jpg" description={COPY.rome_guide.description}>
   <main class="wrap">
     <header class="top">
       <nav class="caps crumbs" aria-label="Breadcrumb"><a href={u('travel/')}>Travel</a><span aria-hidden="true">/</span><span>Rome</span></nav>
       <span class="fr ve" style="font-size:clamp(64px,8vw,104px)">Rome</span>
-      <p class="caps muted">A personal guide · Last updated August 2026 · Next trip March 2027</p>
+      <p class="caps muted">{COPY.rome_guide.dateline}</p>
     </header>
     <div class="layout">
       <aside class="toc" aria-label="In this guide">

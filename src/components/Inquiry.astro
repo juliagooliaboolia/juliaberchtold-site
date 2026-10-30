@@ -2,7 +2,7 @@
 import { EMAIL } from '../data/site.js';
 interface Props { kind?: 'shoot' | 'jewelry'; heading?: string; id?: string }
 const { kind = 'shoot', heading, id } = Astro.props;
-const shootQs = ['Your name:', 'What kind of shoot (wedding, newborn, portrait, event…)?', 'Who will be there?', 'What should these photos feel like?', 'Anyone camera-shy? Most people are.', 'Roughly when, and where?'];
+const shootQs = ['Your name:', 'What kind of shoot (wedding or engagement, family or newborn, portraits or headshots, a community event…)?', 'Who will be there?', 'What should these photos feel like?', 'Anyone camera-shy? Most people are.', 'Roughly when, and where?'];
 const jewelQs = ['Your name:', 'A piece you saw in the studio, or a commission?', 'Who is it for, and what is the occasion?', 'Colors, shapes or stories you love:', 'When do you need it by?'];
 const qs = kind === 'shoot' ? shootQs : jewelQs;
 const subject = kind === 'shoot' ? 'Photo shoot inquiry' : 'Jewelry inquiry';

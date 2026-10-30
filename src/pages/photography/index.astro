@@ -2,9 +2,9 @@
 import Base from '../../layouts/Base.astro';
 import { u } from '../../data/site.js';
 import { FIELD, CATEGORIES } from '../../data/photos.js';
-const tiles = FIELD.map(([cat, f, o, alt], i) => ({ i, cat, src: u('img/' + f), o, alt, word: CATEGORIES[cat].word, link: CATEGORIES[cat].link + ' →', href: u('photography/' + cat + '/') }));
+const tiles = FIELD.map(([cat, f, o, word, alt], i) => ({ i, cat, src: u('img/' + f), o, alt, word: word || CATEGORIES[cat].word, link: CATEGORIES[cat].link + ' →', href: u('photography/' + cat + '/') }));
 ---
-<Base title="Photography" active="Photography" overlay={true} footer={false} description="Weddings, families and newborns, portraits, events and travel — photographs by Julia Berchtold, for friends and friends of friends.">
+<Base title="Photography" active="Photography" overlay={true} footer={false} description="Weddings, family, people, community and travel — photographs by Julia Berchtold, for friends and friends of friends.">
   <main class="field" aria-label="Photography: a field of photos around the word notice">
     <h1 class="sr">Photography</h1>
     {tiles.map((t) => (
@@ -19,7 +19,7 @@ const tiles = FIELD.map(([cat, f, o, alt], i) => ({ i, cat, src: u('img/' + f), 
     <footer class="bar">
       <nav class="caps galleries" aria-label="All galleries">
         <span class="muted">All galleries</span>
-        {Object.entries(CATEGORIES).map(([k, c]) => <a href={u('photography/' + k + '/')}>{k === 'families' ? 'Families' : c.title}</a>)}
+        {Object.entries(CATEGORIES).map(([k, c]) => <a href={u('photography/' + k + '/')}>{c.title}</a>)}
       </nav>
       <div class="controls">
         <button type="button" class="sw caps" role="switch" aria-checked="true"><span>Spotlight</span><span class="tr"><span class="kn"></span></span></button>

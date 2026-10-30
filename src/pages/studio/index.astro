@@ -2,14 +2,21 @@
 import Base from '../../layouts/Base.astro';
 import Inquiry from '../../components/Inquiry.astro';
 import { u, INSTAGRAM_STUDIO } from '../../data/site.js';
-// Available pieces. Replace with real pieces: [photo, watercolor, name, note, status]
-const PIECES = [
-  ['jw-faces.jpg', 'wc-gold-smoke.jpg', 'Faces, in black', 'Single-line faces, cut by hand.', 'Available'],
-  ['jw-flowers.jpg', 'wc-ember-indigo.jpg', 'Garden study', 'Placeholder until the real piece is photographed.', 'Available'],
-  ['jw-wall.jpg', 'wc-ink-color.jpg', 'From the wall', 'Placeholder until the real piece is photographed.', 'Available'],
+// Designs Julia makes to order: [photo, name, note, tag]
+const DESIGNS = [
+  ['j/oysters.jpg', 'Oysters', 'Layered oyster shells with a freshwater pearl. In black or white; you choose the pearl color.', 'Most loved'],
+  ['j/face-lips.jpg', 'Face & lips', 'Two line-drawn faces, eye to eye, each with a red lip.', ''],
+  ['j/sacred-feminine.jpg', 'Sacred feminine', 'An abstract figure with onyx, a pair of pearls and a garnet-red drop.', ''],
+  ['j/pearl-earring.jpg', 'Girl with a Pearl Earring', 'A single-line portrait wearing her own freshwater pearl.', ''],
+];
+// Past commissions: [photo, title, story]
+const COMMISSIONS = [
+  ['j/custom-paraclimbing.jpg', 'For the Paraclimbing World Cup', 'Climbing knots in neon green with blue drops, for a friend competing in Korea and Japan.'],
+  ['j/custom-paso-robles.jpg', 'A wine-country wedding', "Earrings and a branch pin for a friend's wedding in Paso Robles."],
+  ['j/custom-wedding-pin.jpg', 'A pin for my new sister', "For my brother's wife on their wedding day: a gold branch hung with a grey pearl, mother-of-pearl, a hummingbird and a 1994 Italian 20-lire coin."],
 ];
 ---
-<Base title="Studio" active="Studio" description="juju.bee studio: one-of-a-kind earrings, each paired with an original watercolor. A portion of every sale goes to a charity that changes monthly.">
+<Base title="Studio" active="Studio" description="juju.bee studio: handmade earrings and commissions, each paired with an original watercolor. A portion of every sale goes to a charity that changes monthly.">
   <main class="wrap">
     <section class="top">
       <span class="fr vm" style="font-size:clamp(72px,9vw,120px)">make</span>
@@ -26,26 +33,31 @@ const PIECES = [
     </section>
 
     <section class="avail" aria-labelledby="h-avail">
-      <div class="sh"><h2 id="h-avail" class="caps">Available now</h2><span class="muted" style="font-size:14px">One of each. When it's gone, it's gone.</span></div>
+      <div class="sh"><h2 id="h-avail" class="caps">The collection</h2><span class="muted" style="font-size:14px">Made by hand, a few at a time. Each pair comes with an original watercolor.</span></div>
       <div class="grid">
-        {PIECES.map(([photo, wc, name, note, status]) => (
+        {DESIGNS.map(([photo, name, note, tag]) => (
           <article class="piece">
-            <div class="ph">
-              <img class="wc" src={u('img/' + wc)} alt="" loading="lazy" />
-              <img class="jw" src={u('img/' + photo)} alt={name} loading="lazy" />
-            </div>
-            <div class="pm"><h3 class="fr" style="font-size:24px;margin:0;font-variation-settings:'opsz' 36,'wght' 380,'SOFT' 50">{name}</h3><span class="caps muted">{status}</span></div>
-            <p class="muted" style="margin:0;font-size:14px">{note} Comes with its watercolor.</p>
-            <a class="lnk" href={u('inquire/#jewelry')}>Inquire about this pair →</a>
+            <div class="ph"><img src={u('img/' + photo)} alt={name + ' earrings'} loading="lazy" /></div>
+            <div class="pm"><h3 class="fr nm">{name}</h3>{tag && <span class="caps muted">{tag}</span>}</div>
+            <p class="muted" style="margin:0;font-size:14px">{note}</p>
+            <a class="lnk" href={u('inquire/#jewelry')}>Ask about a pair →</a>
           </article>
         ))}
       </div>
     </section>
 
-    <section class="comm">
+    <section class="comm" aria-labelledby="h-comm">
       <span class="caps muted">Commissions</span>
-      <h2 class="display" style="font-size:clamp(32px,4vw,44px)">Something made for you</h2>
-      <p class="lead" style="max-width:640px">For a wedding, a gift, or just because. Tell me who it's for and what they love, and I'll sketch a few ideas, then paint a watercolor to go with the finished pair.</p>
+      <h2 id="h-comm" class="display" style="font-size:clamp(32px,4vw,44px)">Something made for you</h2>
+      <p class="lead" style="max-width:640px">For a wedding, a gift, a big moment. Tell me who it's for and what they love, and I'll sketch a few ideas, then paint a watercolor to go with the finished piece. A few I've made:</p>
+      <div class="grid three">
+        {COMMISSIONS.map(([photo, title, story]) => (
+          <figure class="piece">
+            <div class="ph"><img src={u('img/' + photo)} alt={title} loading="lazy" /></div>
+            <figcaption><h3 class="fr nm">{title}</h3><p class="muted" style="margin:6px 0 0;font-size:14px">{story}</p></figcaption>
+          </figure>
+        ))}
+      </div>
     </section>
 
     <Inquiry kind="jewelry" id="ask" />
@@ -58,12 +70,14 @@ const PIECES = [
   .charity{grid-column:3;display:flex;flex-direction:column;gap:8px;padding:20px;border:1px solid var(--line)}
   .sh{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px;padding-bottom:20px}
   .sh h2{margin:0;font-weight:500}
-  .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px}
-  .piece{display:flex;flex-direction:column;gap:10px}
-  .ph{position:relative;aspect-ratio:4/5;overflow:hidden;background:#E6E1D9}
-  .ph .wc{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-  .ph .jw{position:absolute;left:14%;top:12%;width:72%;height:76%;object-fit:cover;box-shadow:0 14px 30px rgba(31,26,27,.25);border:6px solid var(--card)}
+  .grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px}
+  .grid.three{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:16px}
+  .piece{display:flex;flex-direction:column;gap:10px;margin:0}
+  .ph{aspect-ratio:4/5;overflow:hidden;background:#E6E1D9}
+  .ph img{width:100%;height:100%;object-fit:cover}
   .pm{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-top:6px}
+  .nm{font-size:24px;margin:0;line-height:1.1;font-variation-settings:'opsz' 36,'wght' 380,'SOFT' 50}
   .comm{display:flex;flex-direction:column;gap:16px;padding:96px 0 72px}
-  @media (max-width:820px){ .hd{grid-template-columns:1fr} .charity{grid-column:1} .grid{grid-template-columns:1fr;gap:40px} }
+  @media (max-width:1000px){ .grid{grid-template-columns:repeat(2,minmax(0,1fr))} }
+  @media (max-width:820px){ .hd{grid-template-columns:1fr} .charity{grid-column:1} .grid,.grid.three{grid-template-columns:1fr;gap:40px} }
 </style>

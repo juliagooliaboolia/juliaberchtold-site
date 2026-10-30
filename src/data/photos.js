@@ -122,4 +122,4 @@ export const NOTICE = [
 
 // Homepage "make" panel: watercolors in repaint order
 export const WATERCOLORS = ['wc-gold-smoke.jpg', 'wc-ink-color.jpg', 'wc-ember-indigo.jpg', 'wc-gold-indigo.jpg', 'wc-red-green.jpg', 'wc-jewel.jpg'];
-export const MAKE_UNDER = 'jw-faces.jpg';
+export const MAKE_UNDER = 'j/sacred-feminine.jpg';

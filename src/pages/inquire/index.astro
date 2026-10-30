@@ -1,0 +1,19 @@
+---
+import Base from '../../layouts/Base.astro';
+import Inquiry from '../../components/Inquiry.astro';
+import { INSTAGRAM, INSTAGRAM_STUDIO } from '../../data/site.js';
+---
+<Base title="Inquire" active="Inquire" description="Ask Julia about a photo shoot, an available pair of earrings, or a commission.">
+  <main class="wrap">
+    <section class="top">
+      <h1 class="display" style="font-size:clamp(52px,7vw,84px)">Say hello</h1>
+      <p class="lead" style="max-width:640px">Planning a shoot, eyeing a pair of earrings, or dreaming up a commission? Start here. Proper forms are coming soon; for now, email works best.</p>
+      <p class="muted" style="margin:0">Or find me on Instagram: <a href={INSTAGRAM.url}>{INSTAGRAM.handle}</a> · <a href={INSTAGRAM_STUDIO.url}>{INSTAGRAM_STUDIO.handle}</a></p>
+    </section>
+    <Inquiry kind="shoot" id="shoot" />
+    <div style="height:72px"></div>
+    <Inquiry kind="jewelry" id="jewelry" />
+    <div style="height:72px"></div>
+  </main>
+</Base>
+<style> .top{display:flex;flex-direction:column;gap:18px;padding:24px 0 72px} </style>

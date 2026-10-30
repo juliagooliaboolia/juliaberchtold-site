@@ -1,0 +1,41 @@
+---
+import Base from '../../layouts/Base.astro';
+import ItalyMap from '../../components/ItalyMap.astro';
+import { u } from '../../data/site.js';
+---
+<Base title="Travel" active="Travel" description="Eighteen of Italy's twenty regions and counting, and the Rome guide Julia keeps for friends.">
+  <main class="wrap">
+    <section class="top">
+      <div class="txt">
+        <span class="fr ve" style="font-size:clamp(72px,9vw,120px)">explore</span>
+        <h1 class="display" style="font-size:clamp(32px,4vw,44px);margin-top:12px">The places I wander</h1>
+        <p class="lead">Eighteen of Italy's twenty regions and counting, the Rome guide I keep for friends, and the places farther afield that changed how I see the world.</p>
+        <p class="muted" style="margin:0;font-size:14px">Shaded regions are ones I've explored. Friuli-Venezia Giulia and Basilicata are next on my list. Stories from each region are on their way.</p>
+        <a class="pill solid caps" href={u('travel/rome/')} style="align-self:flex-start">Open the Rome guide →</a>
+      </div>
+      <div class="map"><ItalyMap href="travel/rome/" /></div>
+    </section>
+
+    <section id="rome" class="rome">
+      <a class="card" href={u('travel/rome/')}>
+        <img src={u('img/julia-steps.jpg')} alt="Julia taking a photo from the top of the Spanish Steps" loading="lazy" />
+        <div class="ct">
+          <span class="caps muted">A personal guide</span>
+          <h2 class="fr ve" style="font-size:clamp(56px,7vw,88px);margin:0">Rome</h2>
+          <p class="lead">I fell for Rome as a student, and I've gone back every year since. This is the guide I send friends: the places I love, neighborhood by neighborhood, and when to go so you have them to yourself.</p>
+          <span class="pill solid caps" style="align-self:flex-start">Open the guide →</span>
+        </div>
+      </a>
+    </section>
+  </main>
+</Base>
+<style>
+  .top{display:grid;grid-template-columns:5fr 7fr;gap:48px;align-items:center;padding:24px 0 72px}
+  .txt{display:flex;flex-direction:column;gap:18px}
+  .map{display:flex;justify-content:center} .map :global(svg){width:100%;max-width:560px;height:auto}
+  .rome{border-top:1px solid var(--line);padding:72px 0 48px}
+  .card{display:grid;grid-template-columns:5fr 7fr;gap:48px;align-items:center;text-decoration:none;color:var(--ink)}
+  .card img{width:100%;aspect-ratio:4/5;object-fit:cover}
+  .ct{display:flex;flex-direction:column;gap:18px}
+  @media (max-width:820px){ .top{grid-template-columns:1fr;gap:24px} .card{grid-template-columns:1fr;gap:24px} }
+</style>

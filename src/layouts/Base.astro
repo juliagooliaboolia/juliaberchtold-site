@@ -1,0 +1,53 @@
+---
+import '../styles/global.css';
+import { u, EMAIL, INSTAGRAM, INSTAGRAM_STUDIO } from '../data/site.js';
+interface Props { title?: string; description?: string; active?: string; overlay?: boolean; footer?: boolean; image?: string }
+const { title, description = 'Julia Berchtold — photographs, travel, and handmade jewelry. I capture experiences, and I create them.', active = '', overlay = false, footer = true, image = 'img/julia-camera.jpg' } = Astro.props;
+const full = title ? `${title} — Julia Berchtold` : 'Julia Berchtold';
+const links = [
+  ['Photography', 'photography/'], ['Travel', 'travel/'], ['Studio', 'studio/'], ['About', 'about/'],
+];
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{full}</title>
+  <meta name="description" content={description} />
+  <meta property="og:title" content={full} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={new URL(u(image), Astro.site).href} />
+  <meta name="theme-color" content="#F6F3EE" />
+  <link rel="icon" href={u('favicon.svg')} type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,100..900,0..100,0..1;1,9..144,100..900,0..100,0..1&family=Instrument+Sans:wght@400;500;600&family=Caveat:wght@500&display=swap" rel="stylesheet" />
+  <slot name="head" />
+</head>
+<body>
+  <header class:list={['site-head', { overlay }]}>
+    <a class="name" href={u('')} aria-label="Julia Berchtold, home"><span class="hand">Julia Berchtold</span></a>
+    <button class="menu-btn pill caps" type="button" aria-expanded="false" aria-controls="site-nav" onclick="const n=document.getElementById('site-nav');const o=n.classList.toggle('open');this.setAttribute('aria-expanded',o);this.textContent=o?'Close':'Menu';">Menu</button>
+    <nav id="site-nav" class="site-nav caps" aria-label="Main">
+      <div class="links">
+        {links.map(([label, path]) => <a href={u(path)} aria-current={active === label ? 'page' : undefined}>{label}</a>)}
+      </div>
+      <a class="pill" href={u('inquire/')} style="background:var(--paper)" aria-current={active === 'Inquire' ? 'page' : undefined}>Inquire</a>
+    </nav>
+  </header>
+  <slot />
+  {footer && (
+    <footer class="site-foot">
+      <span class="hand" style="font-size:30px;transform:rotate(-2deg)">Julia Berchtold</span>
+      <nav class="caps muted" aria-label="Footer">
+        {links.map(([label, path]) => <a class="lnk" href={u(path)}>{label}</a>)}
+        <a class="lnk" href={u('inquire/')}>Inquire</a>
+        <a class="lnk" href={INSTAGRAM.url} rel="me">{INSTAGRAM.handle}</a>
+        <a class="lnk" href={INSTAGRAM_STUDIO.url}>{INSTAGRAM_STUDIO.handle}</a>
+      </nav>
+      <span class="muted" style="font-size:12px">© 2026 · <a href={`mailto:${EMAIL}`} class="muted">{EMAIL}</a></span>
+    </footer>
+  )}
+</body>
+</html>

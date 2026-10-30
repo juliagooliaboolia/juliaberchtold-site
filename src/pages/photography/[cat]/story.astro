@@ -1,0 +1,64 @@
+---
+import Base from '../../../layouts/Base.astro';
+import { u } from '../../../data/site.js';
+import { CATEGORIES, SETS } from '../../../data/photos.js';
+export function getStaticPaths() { return Object.keys(CATEGORIES).map((cat) => ({ params: { cat } })); }
+const { cat } = Astro.params;
+const c = CATEGORIES[cat];
+const set = SETS[cat];
+const [a, b, ...rest] = set;
+const keys = Object.keys(CATEGORIES); const nextCat = keys[(keys.indexOf(cat) + 1) % keys.length];
+---
+<Base title={c.story.title + ' · ' + c.title} active="Photography" description={c.blurb}>
+  <main class="wrap">
+    <section class="top">
+      <nav class="caps crumbs" aria-label="Breadcrumb"><a href={u('photography/')}>Photography</a><span aria-hidden="true">/</span><a href={u('photography/' + cat + '/')}>{c.title}</a></nav>
+      <div class="titles">
+        <h1 class="display">{c.story.title}</h1>
+        <span class="caps muted">{c.story.meta}</span>
+      </div>
+    </section>
+
+    <section class="pair">
+      <figure class="one"><img src={u('img/' + a[0])} alt={a[2]} style={`aspect-ratio:${a[1] === 'p' ? '2/3' : '3/2'}`} /></figure>
+      {b && <div class="two"><figure><img src={u('img/' + b[0])} alt={b[2]} loading="lazy" style={`aspect-ratio:${b[1] === 'p' ? '2/3' : '3/2'}`} /></figure><p class="hand note">{c.word}</p></div>}
+    </section>
+
+    {rest.map(([f, o, alt]) => (
+      <figure class="wide"><img src={u('img/' + f)} alt={alt} loading="lazy" style={`aspect-ratio:${o === 'p' ? '2/3' : '3/2'};${o === 'p' ? 'max-width:640px;margin:0 auto' : ''}`} /></figure>
+    ))}
+
+    <section class="next">
+      <a href={u('photography/' + nextCat + '/')} class="thumb"><img src={u('img/' + SETS[nextCat][0][0])} alt="" loading="lazy" /></a>
+      <div class="nx">
+        <span class="caps muted">Next gallery</span>
+        <a class="display" style="font-size:40px;text-decoration:none" href={u('photography/' + nextCat + '/')}>{CATEGORIES[nextCat].title}</a>
+        <a class="lnk" href={u('photography/' + cat + '/')}>Back to {c.title.toLowerCase()} →</a>
+      </div>
+      <div class="cta">
+        <span class="fr" style="font-size:24px;line-height:1.2;font-variation-settings:'opsz' 36,'wght' 360,'SOFT' 50">Want photos like these? Tell me who'll be there.</span>
+        <a class="pill solid caps" href={u('photography/' + cat + '/#ask')}>Ask about a shoot</a>
+      </div>
+    </section>
+  </main>
+</Base>
+<style>
+  .top{display:flex;flex-direction:column;gap:18px;padding:32px 0 48px}
+  .crumbs{display:flex;gap:10px;color:var(--muted)} .crumbs a{color:var(--muted);text-decoration:none}
+  .titles{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px 24px}
+  .titles .display{font-size:clamp(52px,7vw,84px);line-height:.98}
+  figure{margin:0} figure img{width:100%;object-fit:cover;background:#E6E1D9}
+  .pair{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:24px;align-items:start}
+  .one{grid-column:span 6} .two{grid-column:8 / span 5;display:flex;flex-direction:column;gap:32px;margin-top:180px}
+  .note{font-size:40px;transform:rotate(-1.5deg)}
+  .wide{margin:96px 0 0}
+  .next{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:24px;align-items:center;border-top:1px solid var(--line);padding:56px 0 24px;margin-top:112px}
+  .thumb{grid-column:span 3} .thumb img{aspect-ratio:4/5;object-fit:cover}
+  .nx{grid-column:5 / span 4;display:flex;flex-direction:column;gap:12px}
+  .cta{grid-column:10 / span 3;display:flex;flex-direction:column;gap:16px;align-items:flex-start}
+  @media (max-width:820px){
+    .pair,.next{grid-template-columns:1fr}
+    .one,.two,.thumb,.nx,.cta{grid-column:1} .two{margin-top:24px} .wide{margin-top:24px} .next{margin-top:64px}
+    .thumb img{max-width:240px}
+  }
+</style>

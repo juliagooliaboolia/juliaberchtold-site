@@ -1,0 +1,11 @@
+---
+import Base from '../layouts/Base.astro';
+import { u } from '../data/site.js';
+---
+<Base title="Not found">
+  <main class="wrap" style="padding:80px var(--gutter) 120px;display:flex;flex-direction:column;gap:20px;align-items:flex-start">
+    <span class="fr vn" style="font-size:clamp(72px,10vw,140px)">notice</span>
+    <p class="hand" style="font-size:40px">…this page isn't here.</p>
+    <a class="pill solid caps" href={u('')}>Back home</a>
+  </main>
+</Base>

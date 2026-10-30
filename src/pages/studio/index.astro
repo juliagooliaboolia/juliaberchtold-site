@@ -1,0 +1,69 @@
+---
+import Base from '../../layouts/Base.astro';
+import Inquiry from '../../components/Inquiry.astro';
+import { u, INSTAGRAM_STUDIO } from '../../data/site.js';
+// Available pieces. Replace with real pieces: [photo, watercolor, name, note, status]
+const PIECES = [
+  ['jw-faces.jpg', 'wc-gold-smoke.jpg', 'Faces, in black', 'Single-line faces, cut by hand.', 'Available'],
+  ['jw-flowers.jpg', 'wc-ember-indigo.jpg', 'Garden study', 'Placeholder until the real piece is photographed.', 'Available'],
+  ['jw-wall.jpg', 'wc-ink-color.jpg', 'From the wall', 'Placeholder until the real piece is photographed.', 'Available'],
+];
+---
+<Base title="Studio" active="Studio" description="juju.bee studio: one-of-a-kind earrings, each paired with an original watercolor. A portion of every sale goes to a charity that changes monthly.">
+  <main class="wrap">
+    <section class="top">
+      <span class="fr vm" style="font-size:clamp(72px,9vw,120px)">make</span>
+      <div class="hd">
+        <div>
+          <h1 class="display" style="font-size:clamp(32px,4vw,44px)">juju.bee studio</h1>
+          <p class="lead" style="margin-top:16px">Jewelry that makes a statement, for a good cause. Every pair comes with an original watercolor of mine, and a portion of every sale goes to a new charitable organization each month.</p>
+        </div>
+        <div class="charity">
+          <span class="caps muted">This month's cause</span>
+          <span class="fr" style="font-size:24px;font-variation-settings:'opsz' 36,'wght' 360,'SOFT' 50">Announced on <a href={INSTAGRAM_STUDIO.url}>{INSTAGRAM_STUDIO.handle}</a></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="avail" aria-labelledby="h-avail">
+      <div class="sh"><h2 id="h-avail" class="caps">Available now</h2><span class="muted" style="font-size:14px">One of each. When it's gone, it's gone.</span></div>
+      <div class="grid">
+        {PIECES.map(([photo, wc, name, note, status]) => (
+          <article class="piece">
+            <div class="ph">
+              <img class="wc" src={u('img/' + wc)} alt="" loading="lazy" />
+              <img class="jw" src={u('img/' + photo)} alt={name} loading="lazy" />
+            </div>
+            <div class="pm"><h3 class="fr" style="font-size:24px;margin:0;font-variation-settings:'opsz' 36,'wght' 380,'SOFT' 50">{name}</h3><span class="caps muted">{status}</span></div>
+            <p class="muted" style="margin:0;font-size:14px">{note} Comes with its watercolor.</p>
+            <a class="lnk" href={u('inquire/#jewelry')}>Inquire about this pair →</a>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="comm">
+      <span class="caps muted">Commissions</span>
+      <h2 class="display" style="font-size:clamp(32px,4vw,44px)">Something made for you</h2>
+      <p class="lead" style="max-width:640px">For a wedding, a gift, or just because. Tell me who it's for and what they love, and I'll sketch a few ideas, then paint a watercolor to go with the finished pair.</p>
+    </section>
+
+    <Inquiry kind="jewelry" id="ask" />
+    <div style="height:48px"></div>
+  </main>
+</Base>
+<style>
+  .top{display:flex;flex-direction:column;gap:12px;padding:24px 0 56px}
+  .hd{display:grid;grid-template-columns:7fr 1fr 4fr;gap:24px;align-items:end}
+  .charity{grid-column:3;display:flex;flex-direction:column;gap:8px;padding:20px;border:1px solid var(--line)}
+  .sh{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:8px;padding-bottom:20px}
+  .sh h2{margin:0;font-weight:500}
+  .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px}
+  .piece{display:flex;flex-direction:column;gap:10px}
+  .ph{position:relative;aspect-ratio:4/5;overflow:hidden;background:#E6E1D9}
+  .ph .wc{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .ph .jw{position:absolute;left:14%;top:12%;width:72%;height:76%;object-fit:cover;box-shadow:0 14px 30px rgba(31,26,27,.25);border:6px solid var(--card)}
+  .pm{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-top:6px}
+  .comm{display:flex;flex-direction:column;gap:16px;padding:96px 0 72px}
+  @media (max-width:820px){ .hd{grid-template-columns:1fr} .charity{grid-column:1} .grid{grid-template-columns:1fr;gap:40px} }
+</style>

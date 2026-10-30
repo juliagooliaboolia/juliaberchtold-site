@@ -1,6 +1,6 @@
 :root{
   --paper:#F6F3EE; --paper-2:#EFEBE4; --card:#FBF9F5; --ink:#1F1A1B; --muted:#5D5652; --body:#3D3637;
-  --line:#1F1A1B26; --indigo:#334256; --indigo-wash:#BCC8D8;
+  --line:#1F1A1B26; --indigo:#334256; --indigo-wash:#BCC8D8; --stone:#D9D2C8; --stone-deep:#A99C8C;
   --gutter:64px; --maxw:1280px;
 }
 @media (max-width:820px){ :root{ --gutter:20px; } }

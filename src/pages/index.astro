@@ -27,9 +27,11 @@ import { NOTICE, WATERCOLORS, MAKE_UNDER } from '../data/photos.js';
       <div class="panel explore">
         <div class="map"><ItalyMap /></div>
         <a href={u('travel/')} class="fr ve verb" tabindex="-1">explore</a>
-        <a class="rome" href={u('travel/rome/')}>
-          <span class="caps muted" style="font-size:10px">Rome guide</span>
-          <span class="fr">Where I'd send you today →</span>
+        <svg class="string" aria-hidden="true"><path d="" /></svg>
+        <a class="rome" href={u('travel/rome/')} aria-label="My Rome guide">
+          <span class="tack" aria-hidden="true"></span>
+          <img src={u('img/p/trv-italy-rome-4.jpg')} alt="Ponte Sisto at golden hour, Rome" loading="lazy" />
+          <span class="cap"><span class="hand">Rome</span><span class="caps">my guide →</span></span>
         </a>
       </div>
 
@@ -105,9 +107,17 @@ import { NOTICE, WATERCOLORS, MAKE_UNDER } from '../data/photos.js';
   /* explore */
   .explore .map{position:absolute;left:0;right:0;top:40px;bottom:110px;display:flex;justify-content:center}
   .explore .map :global(svg){height:100%;width:auto;max-width:100%}
-  .explore .verb{text-shadow:0 0 18px var(--paper),0 0 6px var(--paper),0 0 2px var(--paper)}
-  .rome{position:absolute;right:0;bottom:0;width:190px;transform:rotate(-2deg);display:flex;flex-direction:column;gap:6px;background:var(--card);border:1px solid var(--line);box-shadow:0 8px 18px rgba(31,26,27,.10);padding:14px 16px;text-decoration:none}
-  .rome .fr{font-size:20px;line-height:1.1;font-variation-settings:'opsz' 36,'wght' 380,'SOFT' 50}
+  .explore .verb{z-index:2;text-shadow:0 0 18px var(--paper),0 0 6px var(--paper),0 0 2px var(--paper)}
+  /* the Rome guide: a Polaroid of Ponte Sisto, tied to the Rome pin with a thread */
+  .rome{position:absolute;left:0;bottom:0;width:128px;z-index:3;transform:rotate(-3deg);transform-origin:50% 0;display:flex;flex-direction:column;gap:6px;background:var(--card);padding:8px 8px 10px;box-shadow:0 1px 2px rgba(31,26,27,.12),0 10px 22px rgba(31,26,27,.14);text-decoration:none;color:var(--ink);transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s ease}
+  .rome:hover,.rome:focus-visible{transform:rotate(0) translateY(-4px);box-shadow:0 1px 2px rgba(31,26,27,.12),0 16px 30px rgba(31,26,27,.18);color:var(--ink)}
+  .rome img{width:100%;aspect-ratio:4/5;object-fit:cover}
+  .rome .cap{display:flex;justify-content:space-between;align-items:baseline;gap:6px;padding:0 2px}
+  .rome .cap .hand{font-size:30px;transform:rotate(-3deg)}
+  .rome .cap .caps{font-size:9.5px;letter-spacing:.14em;color:var(--muted);white-space:nowrap}
+  .rome .tack{position:absolute;left:50%;top:-5px;width:11px;height:11px;margin-left:-5.5px;border-radius:50%;background:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.3)}
+  .string{position:absolute;inset:0;z-index:1;width:100%;height:100%;pointer-events:none;overflow:visible}
+  .string path{fill:none;stroke:var(--ink);stroke-opacity:.45;stroke-width:1;stroke-dasharray:3 4}
 
   /* make */
   .make-col{display:flex;flex-direction:column;align-items:stretch}
@@ -135,13 +145,14 @@ import { NOTICE, WATERCOLORS, MAKE_UNDER } from '../data/photos.js';
 
   @media (max-width:1000px){
     .hero{gap:20px}
-    .rome{width:170px}
+    .rome{width:116px}
   }
   @media (max-width:820px){
     .hero{grid-template-columns:1fr;gap:28px}
     .panel{height:min(68svh,560px)}
     .explore{height:auto;aspect-ratio:400/560;max-height:620px}
     .explore .map{top:0;bottom:90px}
+    .rome{width:112px}
     .descs{grid-template-columns:1fr;gap:40px}
     .about-blade .inner{grid-template-columns:1fr;gap:20px}
     .about-blade .me{width:100%;height:auto;aspect-ratio:4/5;max-width:360px}
@@ -180,6 +191,23 @@ import { NOTICE, WATERCOLORS, MAKE_UNDER } from '../data/photos.js';
     notice.addEventListener('focusin', () => hover = true);
     notice.addEventListener('focusout', () => hover = false);
     if (!reduce) setInterval(next, 3000);
+  }
+
+  // ---- explore: a thread from the Rome pin to the Polaroid's tack ----
+  const explore = document.querySelector('.explore');
+  if (explore) {
+    const path = explore.querySelector('.string path');
+    const pin = explore.querySelector('svg.italy circle');
+    const tack = explore.querySelector('.rome .tack');
+    const draw = () => {
+      const P = explore.getBoundingClientRect(), a = pin.getBoundingClientRect(), b = tack.getBoundingClientRect();
+      const x1 = a.left + a.width / 2 - P.left, y1 = a.top + a.height / 2 - P.top;
+      const x2 = b.left + b.width / 2 - P.left, y2 = b.top + b.height / 2 - P.top;
+      const mx = (x1 + x2) / 2 + 30, my = (y1 + y2) / 2 + 40;
+      path.setAttribute('d', `M${x1.toFixed(1)},${y1.toFixed(1)} Q${mx.toFixed(1)},${my.toFixed(1)} ${x2.toFixed(1)},${y2.toFixed(1)}`);
+    };
+    draw(); addEventListener('resize', draw); addEventListener('load', draw);
+    explore.querySelector('.rome').addEventListener('transitionend', draw);
   }
 
   // ---- make: the watercolor erases to reveal the earrings; repaint brings the next one ----

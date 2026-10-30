@@ -27,7 +27,7 @@ const links = [
 </head>
 <body>
   <header class:list={['site-head', { overlay }]}>
-    <a class="name" href={u('')} aria-label="Julia Berchtold, home"><span class="hand">Julia Berchtold</span></a>
+    <a class="name" href={u('')}><img class="sig" src={u('img/signature-julia-berchtold.png')} alt="Julia Berchtold, home" width="1400" height="221" /></a>
     <button class="menu-btn pill caps" type="button" aria-expanded="false" aria-controls="site-nav" onclick="const n=document.getElementById('site-nav');const o=n.classList.toggle('open');this.setAttribute('aria-expanded',o);this.textContent=o?'Close':'Menu';">Menu</button>
     <nav id="site-nav" class="site-nav caps" aria-label="Main">
       <div class="links">
@@ -39,7 +39,7 @@ const links = [
   <slot />
   {footer && (
     <footer class="site-foot">
-      <span class="hand" style="font-size:30px;transform:rotate(-2deg)">Julia Berchtold</span>
+      <img class="sig foot" src={u('img/signature-julia-berchtold.png')} alt="Julia Berchtold" width="1400" height="221" loading="lazy" />
       <nav class="caps muted" aria-label="Footer">
         {links.map(([label, path]) => <a class="lnk" href={u(path)}>{label}</a>)}
         <a class="lnk" href={u('inquire/')}>Inquire</a>

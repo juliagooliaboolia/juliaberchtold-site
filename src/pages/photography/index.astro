@@ -23,7 +23,7 @@ const tiles = FIELD.map(([cat, f, o, word, alt], i) => ({ i, cat, src: u('img/' 
       </nav>
       <div class="controls">
         <button type="button" class="sw caps" role="switch" aria-checked="true"><span>Spotlight</span><span class="tr"><span class="kn"></span></span></button>
-        <span class="hint">Drag to look around</span>
+        <span class="hint">Drag or scroll to look around</span>
         <button type="button" class="toggle" aria-label="Pause motion" title="Pause motion"><span><svg class="i-pause" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><rect x="2.5" y="1.5" width="2.4" height="9" fill="#1F1A1B"/><rect x="7.1" y="1.5" width="2.4" height="9" fill="#1F1A1B"/></svg><svg class="i-play" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 1.5 L10.5 6 L3 10.5 Z" fill="#1F1A1B"/></svg></span></button>
       </div>
     </footer>
@@ -65,7 +65,7 @@ const tiles = FIELD.map(([cat, f, o, word, alt], i) => ({ i, cat, src: u('img/' 
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   let K = 1, W = 1900, H = 1220, CX = 640, CY = 410;
   let t = 0, ox = 0, oy = 0, px = 0, py = 0, tpx = 0, tpy = 0, paused = false, spot = true;
-  let hover = null, kbd = null, drag = null, moved = 0, lastF = null, flip = false;
+  let hover = null, kbd = null, drag = null, moved = 0, lastF = null, flip = false, idleUntil = 0;
   const SP = 1.4;
 
   // seeded Poisson-ish scatter on a wrapping plane
@@ -98,7 +98,7 @@ const tiles = FIELD.map(([cat, f, o, word, alt], i) => ({ i, cat, src: u('img/' 
   let prev = performance.now();
   const loop = (now) => {
     const dt = Math.min(50, now - prev); prev = now;
-    if (!paused && !reduce && hover === null && kbd === null && !drag) t += dt / 1000;
+    if (!paused && !reduce && hover === null && kbd === null && !drag && now > idleUntil) t += dt / 1000;
     px += (tpx - px) * .06; py += (tpy - py) * .06;
     const w = 2 * Math.PI / 120;
     const camX = (520 * Math.cos(t * w)) * K + ox + px * 70 * K, camY = (290 * Math.sin(t * w)) * K + oy + py * 45 * K;
@@ -144,6 +144,21 @@ const tiles = FIELD.map(([cat, f, o, word, alt], i) => ({ i, cat, src: u('img/' 
   field.addEventListener('pointerleave', () => { hover = null; tpx = tpy = 0; end(); });
   field.addEventListener('click', (e) => { if (moved > 8 && e.target.closest('.tile')) { e.preventDefault(); } }, true);
   tiles.forEach((el) => { el.addEventListener('focus', () => kbd = +el.dataset.i); el.addEventListener('blur', () => { if (kbd === +el.dataset.i) kbd = null; }); });
+
+  // Trackpad two-finger scroll and mouse wheel pan the field; arrow keys too.
+  field.addEventListener('wheel', (e) => {
+    if (e.target.closest('header,.bar')) return;
+    e.preventDefault();
+    if (e.ctrlKey) return; // pinch: ignore rather than zoom the page
+    const k = e.deltaMode === 1 ? 16 : 1;
+    ox += e.deltaX * k; oy += e.deltaY * k; hover = null;
+    idleUntil = performance.now() + 1500;
+  }, { passive: false });
+  addEventListener('keydown', (e) => {
+    if (/INPUT|TEXTAREA/.test(document.activeElement?.tagName || '')) return;
+    const step = 80, m = { ArrowLeft: [-step, 0], ArrowRight: [step, 0], ArrowUp: [0, -step], ArrowDown: [0, step] }[e.key];
+    if (!m) return; e.preventDefault(); ox += m[0]; oy += m[1]; idleUntil = performance.now() + 1500;
+  });
 
   const sw = field.querySelector('.sw');
   sw.addEventListener('click', () => { spot = !spot; sw.setAttribute('aria-checked', String(spot)); });

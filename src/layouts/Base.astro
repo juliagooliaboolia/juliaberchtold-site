@@ -5,9 +5,8 @@ import { u, EMAIL, INSTAGRAM, INSTAGRAM_STUDIO } from '../data/site.js';
 interface Props { title?: string; description?: string; active?: string; overlay?: boolean; footer?: boolean; image?: string }
 const { title, description = COPY.site.description, active = '', overlay = false, footer = true, image = 'img/julia-camera.jpg' } = Astro.props;
 const full = title ? `${title} — Julia Berchtold` : 'Julia Berchtold';
-const links = [
-  ['Photography', 'photography/'], ['Travel', 'travel/'], ['Studio', 'studio/'], ['About', 'about/'],
-];
+const sections = [['Photography', 'photography/'], ['Travel', 'travel/'], ['Studio', 'studio/']];
+const links = [...sections, ['About', 'about/']];
 ---
 <!doctype html>
 <html lang="en">
@@ -32,9 +31,12 @@ const links = [
     <button class="menu-btn pill caps" type="button" aria-expanded="false" aria-controls="site-nav" onclick="const n=document.getElementById('site-nav');const o=n.classList.toggle('open');this.setAttribute('aria-expanded',o);this.textContent=o?'Close':'Menu';">Menu</button>
     <nav id="site-nav" class="site-nav caps" aria-label="Main">
       <div class="links">
-        {links.map(([label, path]) => <a href={u(path)} aria-current={active === label ? 'page' : undefined}>{label}</a>)}
+        {sections.map(([label, path]) => <a href={u(path)} aria-current={active === label ? 'page' : undefined}>{label}</a>)}
       </div>
-      <a class="pill" href={u('inquire/')} style="background:var(--paper)" aria-current={active === 'Inquire' ? 'page' : undefined}>Inquire</a>
+      <div class="side">
+        <a class="about" href={u('about/')} aria-current={active === 'About' ? 'page' : undefined}>About</a>
+        <a class="pill" href={u('inquire/')} style="background:var(--paper)" aria-current={active === 'Inquire' ? 'page' : undefined}>Inquire</a>
+      </div>
     </nav>
   </header>
   <slot />

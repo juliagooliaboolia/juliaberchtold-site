@@ -1,15 +1,15 @@
 ---
 import { EMAIL } from '../data/site.js';
 import { COPY } from '../data/copy.js';
-interface Props { kind?: 'shoot' | 'jewelry'; heading?: string; id?: string }
-const { kind = 'shoot', heading, id } = Astro.props;
+interface Props { kind?: 'shoot' | 'jewelry'; heading?: string; id?: string; card?: boolean }
+const { kind = 'shoot', heading, id, card = false } = Astro.props;
 const Q = COPY.inquire;
 const k = kind === 'shoot' ? Q.shoot : Q.jewelry;
 const qs = k.questions;
 const subject = k.email_subject;
 const href = `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(Q.email_greeting + '\n\n' + [Q.email_name_prompt, ...qs].map((q) => q + '\n\n').join(''))}`;
 ---
-<section class="inq" id={id}>
+<section class:list={['inq', { card }]} id={id}>
   <div class="l">
     <span class="caps muted">{k.label}</span>
     <h2 class="display">{heading ?? k.heading}</h2>
@@ -27,5 +27,11 @@ const href = `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${enco
   .l .display{font-size:clamp(32px,4vw,44px);line-height:1.08}
   .r{grid-column:3;display:flex;flex-direction:column;gap:12px;align-items:flex-start}
   ol{margin:0 0 12px;padding-left:20px;display:flex;flex-direction:column;gap:8px;font-size:17px;line-height:1.5;color:var(--body)}
-  @media (max-width:820px){ .inq{grid-template-columns:1fr;gap:28px} .r{grid-column:1} }
+  /* card: the compact version used side by side on the Inquire page */
+  .inq.card{display:flex;flex-direction:column;gap:18px;padding:32px;border:1px solid var(--line);background:var(--card)}
+  .inq.card .l{gap:12px}
+  .inq.card .l .display{font-size:clamp(24px,2.4vw,30px);line-height:1.15}
+  .inq.card .r{gap:10px}
+  .inq.card ol{font-size:15px;gap:6px;margin-bottom:8px}
+  @media (max-width:820px){ .inq.card{padding:24px} .inq{grid-template-columns:1fr;gap:28px} .r{grid-column:1} }
 </style>

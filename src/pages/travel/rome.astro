@@ -12,6 +12,10 @@ const heads = getHeadings().filter((h) => h.depth <= 3 && !/^(If you've been bef
       <span class="fr ve" style="font-size:clamp(64px,8vw,104px)">Rome</span>
       <p class="caps muted">{COPY.rome_guide.dateline}</p>
     </header>
+    <details class="jump">
+      <summary class="caps">In this guide <span aria-hidden="true">▾</span></summary>
+      <ol>{heads.filter((h) => h.depth === 2).map((h) => <li><a href={'#' + h.slug}>{h.text}</a></li>)}</ol>
+    </details>
     <div class="layout">
       <aside class="toc" aria-label="In this guide">
         <span class="caps muted">In this guide</span>
@@ -23,6 +27,11 @@ const heads = getHeadings().filter((h) => h.depth <= 3 && !/^(If you've been bef
     </div>
   </main>
 </Base>
+<script>
+  // close the phone menu after picking a section
+  const j = document.querySelector('.jump');
+  j?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => j.removeAttribute('open')));
+</script>
 <style>
   .top{display:flex;flex-direction:column;gap:14px;padding:24px 0 48px;border-bottom:1px solid var(--line)}
   .crumbs{display:flex;gap:10px;color:var(--muted)} .crumbs a{color:var(--muted);text-decoration:none}
@@ -46,5 +55,16 @@ const heads = getHeadings().filter((h) => h.depth <= 3 && !/^(If you've been bef
   .guide :global(td:first-child){width:32%;color:var(--muted)}
   .guide :global(ul),.guide :global(ol){padding-left:22px;margin:0 0 16px}
   .guide :global(li){margin-bottom:6px}
-  @media (max-width:900px){ .layout{grid-template-columns:1fr;gap:24px} .toc{position:static;max-height:none} .toc ol{display:none} .toc{display:none} .guide :global(td:first-child){width:38%} }
+  /* phones and small tablets: a sticky "In this guide" menu instead of the side list */
+  .jump{display:none}
+  @media (max-width:900px){
+    .layout{grid-template-columns:1fr;gap:24px;padding-top:24px} .toc{display:none} .guide :global(td:first-child){width:38%}
+    .jump{display:block;position:sticky;top:0;z-index:20;margin:0 calc(-1 * var(--gutter));padding:0 var(--gutter);background:var(--paper);border-bottom:1px solid var(--line)}
+    .jump summary{list-style:none;display:flex;justify-content:space-between;align-items:center;min-height:48px;cursor:pointer;font-size:11px}
+    .jump summary::-webkit-details-marker{display:none}
+    .jump[open] summary span{transform:rotate(180deg)}
+    .jump ol{list-style:none;margin:0;padding:4px 0 16px;display:flex;flex-direction:column;max-height:60vh;overflow:auto}
+    .jump a{display:block;padding:10px 0;text-decoration:none;font-size:16px;border-top:1px solid var(--line)}
+    .guide :global(h2),.guide :global(h3){scroll-margin-top:64px}
+  }
 </style>

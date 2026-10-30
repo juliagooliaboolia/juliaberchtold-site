@@ -157,6 +157,9 @@ import { NOTICE, WATERCOLORS, MAKE_UNDER } from '../data/photos.js';
     const prints = [...notice.querySelectorAll('.pr')];
     const word = notice.querySelector('.word');
     let cur = 0, prev = -1, hover = false, flip = false;
+    // long words step down so they stay inside the photo
+    const fit = () => { const n = word.textContent.length; word.style.fontSize = n > 16 ? '34px' : n > 11 ? '40px' : '48px'; };
+    fit();
     const show = () => prints.forEach((p, i) => {
       const img = p.querySelector('img');
       img.alt = i === cur ? img.dataset.alt : '';
@@ -167,7 +170,7 @@ import { NOTICE, WATERCOLORS, MAKE_UNDER } from '../data/photos.js';
     const next = () => {
       if (!hover) {
         prev = cur; cur = (cur + 1) % prints.length; show();
-        word.textContent = prints[cur].dataset.word;
+        word.textContent = prints[cur].dataset.word; fit();
         flip = !flip; word.style.animation = 'none'; void word.offsetWidth;
         word.style.animation = (flip ? 'writeA' : 'writeB') + ' .9s .35s ease-out both';
       }

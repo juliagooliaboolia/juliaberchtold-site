@@ -114,10 +114,11 @@ export const FIELD = [
 // Homepage "notice" panel: [file, alt, handwritten word]
 export const NOTICE = [
   ['p/wed-ko-1.jpg', 'Bride laughing with a bright bouquet', 'love'],
-  ['p/fam-hayly-1.jpg', 'Mother smiling down at her newborn in golden light', 'new life'],
-  ['p/por-madeline.jpg', 'Woman lit by projected flowers', 'who you are'],
-  ['p/evt-aca-6.jpg', 'Honoree holding her award at a charity gala', 'change-makers'],
-  ['p/trv-tofo-1.jpg', 'Three friends walking into the sea at sunset, Tofo', 'the world'],
+  ['p/fam-sd-2.jpg', 'Family of four in a tangle of hugs, in black and white', 'new life'],
+  ['p/trv-moz-1.jpg', 'Woman carrying a child, Mozambique', 'our global community'],
+  ['p/trv-kruger-3.jpg', 'Lioness stalking through the grass, Kruger', 'wild life'],
+  ['p/por-moz-3.jpg', 'Woman laughing in a patterned skirt, Mozambique', 'joy'],
+  ['p/trv-tofo-1.jpg', 'Three friends walking into the sea at sunset, Tofo', 'sunrises'],
 ];
 
 // Homepage "make" panel: watercolors in repaint order

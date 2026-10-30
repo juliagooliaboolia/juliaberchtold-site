@@ -154,7 +154,7 @@ travel:
     world.
   map_note: >
     Shaded regions are ones I've explored. Friuli-Venezia Giulia and
-    Basilicata are next on my list. Stories from each region are on their
+    Basilicata are next on my list. Stories and recommendations for each region are on their
     way.
   map_button: "Open the Rome guide →"
   rome_card:
@@ -168,23 +168,23 @@ travel:
 
 # The top of the Rome guide page (the guide itself is in src/content/rome.md)
 rome_guide:
-  description: "Julia's personal guide to Rome: where to eat, drink and wander, neighborhood by neighborhood, and when to go to have it to yourself."
+  description: "Julia's personal guide to Rome: where to eat, drink and wander, neighborhood by neighborhood."
   dateline: "A personal guide · Last updated August 2026 · Next trip March 2027"
 
 
 # ═══ STUDIO ═════════════════════════════════════════════════════════
 studio:
-  description: "juju.bee studio: handmade earrings and commissions, each paired with an original watercolor. A portion of every sale goes to a charity that changes monthly."
+  description: "juju.bee studio: handmade earrings and commissions, each paired with an original watercolor. A portion of every sale goes to a good cause."
   heading: "juju.bee studio"
   intro: >
     Jewelry that makes a statement, for a good cause. Every pair comes
     with an original watercolor of mine, and a portion of every sale goes
-    to a new charitable organization each month.
+    to an organization making a difference.
   cause_label: "This month's cause"
   cause_text: "Announced on"   # followed by the @juju.bee.studio link
 
   collection_heading: "The collection"
-  collection_note: "Made by hand, a few at a time. Each pair comes with an original watercolor."
+  collection_note: "Made by hand, a few at a time. Each pair comes with an original watercolor and tiny delights."
   ask_link: "Ask about a pair →"
 
   # The designs, in order. To change a photo, swap the file name
@@ -210,7 +210,7 @@ studio:
   commissions_label: "Commissions"
   commissions_heading: "Something made for you"
   commissions_intro: >
-    For a wedding, a gift, a big moment. Tell me who it's for and what they
+    For a wedding, a gift, a big moment or a small one. Tell me who it's for and what they
     love, and I'll sketch a few ideas, then paint a watercolor to go with
     the finished piece. A few I've made:
   commissions:
@@ -231,28 +231,27 @@ about:
   heading: "Hi, I'm Julia."
   paragraphs:
     - >
-      I'm Julia (or "Juju"), an amateur photographer, designer, maker, and
+      I'm Julia (or "Juju") - an amateur photographer, designer, maker, and
       collector of moments, stories, and way too many hobbies. I'm
       endlessly fascinated by people, the places that shape us, and the
       beauty hiding in plain sight. This little space is where all my
       curiosities come together.
     - >
       Behind the camera, my real skill is people. I'm good at putting
-      strangers at ease and bringing energy into a room, and some of it
-      ends up in the photos. I photograph friends, and friends of friends.
+      strangers at ease and bringing energy into a room, and I hope that shows up in my photos. I photograph friends, and friends of friends.
       If that might be you, say hello.
 
   facts_heading: "A few things about me"
   # Add, remove or reorder facts freely: each is a label and a line.
   facts:
     - label: "Home"
-      text: "Greenpoint, Brooklyn, by way of inland California"
+      text: "Greenpoint, Brooklyn, by way of Bakersfield California"
     - label: "Italy so far"
       text: "18 of 20 regions · Friuli-Venezia Giulia and Basilicata next"
     - label: "Off camera"
-      text: "Watercolor, jewelry, piano, and too many other hobbies"
+      text: "Art, jewelry, piano, boxing, Goju Ryu karate (and too many other hobbies)"
     - label: "Day job"
-      text: "Experience designer"
+      text: "Digital experience designer"
 
   archive_label: "Where this started"
   archive_text: >
